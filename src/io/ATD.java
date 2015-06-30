@@ -42,8 +42,8 @@ public class ATD {
 		BufferedReader br = new BufferedReader(fr);
 		String newLine = "";
 		while(true)
-		{
-			ArrayList<String> x = new ArrayList<String>();
+		{		
+			ArrayList<String> x = new ArrayList<String>(); //single test case
 			newLine = br.readLine();
 			if(newLine == null)
 				break;

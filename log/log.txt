@@ -1,47 +1,12 @@
-[Sentence]	create a function 
-Creating function
+[Sentence]	Create for loop that runs 10 times 
 Relations 
-function(NN) with a(DT) has relation det
-create(VB) with function(NN) has relation dobj
-No function name found
-No function parameters found
-[Sentence]	create a function called fibonacci 
-Creating function
-Relations 
-function(NN) with a(DT) has relation det
-create(VB) with function(NN) has relation dobj
-function(NN) with called(VBN) has relation acl
-called(VBN) with fibonacci(NNS) has relation dobj
-No function parameters found
-[Sentence]	create a function with int n 
-Creating function
-Relations 
-function(NN) with a(DT) has relation det
-create(VB) with function(NN) has relation dobj
-n(NN) with with(IN) has relation case
-n(NN) with int(NN) has relation compound
-create(VB) with n(NN) has relation nmod:with
-No function name found
-[Sentence]	create a function called fibonacci that returns an int 
-Creating function
-Relations 
-function(NN) with a(DT) has relation det
-create(VB) with function(NN) has relation dobj
-function(NN) with called(VBN) has relation acl
-called(VBN) with fibonacci(NNS) has relation dobj
-returns(VBZ) with that(WDT) has relation nsubj
-fibonacci(NNS) with returns(VBZ) has relation acl:relcl
-int(NN) with an(DT) has relation det
-returns(VBZ) with int(NN) has relation dobj
-No function parameters found
-[Sentence]	create function called fibonacci that returns an int 
-Creating function
-Relations 
-create(VB) with function(NN) has relation dobj
-function(NN) with called(VBN) has relation acl
-called(VBN) with fibonacci(NNS) has relation dobj
-returns(VBZ) with that(WDT) has relation nsubj
-fibonacci(NNS) with returns(VBZ) has relation acl:relcl
-int(NN) with an(DT) has relation det
-returns(VBZ) with int(NN) has relation dobj
-No function parameters found
+loop(NN) with for(IN) has relation case
+Create(VB) with loop(NN) has relation nmod:for
+runs(VBZ) with that(WDT) has relation nsubj
+loop(NN) with runs(VBZ) has relation acl:relcl
+times(NNS) with 10(CD) has relation compound
+runs(VBZ) with times(NNS) has relation dobj
+Could not find loop condition, returning null
+Could not find loop condition, returning null
+Could not find loop condition, returning null
+Could not find loop condition, returning null

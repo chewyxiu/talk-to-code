@@ -114,7 +114,20 @@ public class ASTCreator {
 	
 	public ASTNode findCreate(Sentence s, String w)
 	{
-		String r = s.findWord2InRelation(w, "dobj");
+		 
+		consoleLogger.log("Relations ");
+		for (GrammarRelation rel : s.relations) {
+			consoleLogger.log(rel.toString());
+		}
+		
+		for (GrammarRelation rel : s.relations) {
+			if (rel.hasWord1("loop", "case") || rel.hasWord1("loop", "compound"))
+				return createLoop(s);
+		else 
+		
+			return null;
+		}
+		/*String r = s.findWord2InRelation(w, "dobj");
 		if(r==null)
 			consoleLogger.log("Could not find what to create, returning null");
 		else
@@ -130,8 +143,71 @@ public class ASTCreator {
 			else
 				consoleLogger.log("Could not find what to create, returning null");
 		}
+		*/
 		return null;
 				
+	}
+	
+	public ASTNode createLoop(Sentence s)
+	{
+		ASTLoop loop = new ASTLoop(root);
+		String loopName = findLoopType(s);
+		String loopCondition = findLoopCondition(s);
+		
+		if (loopName == null) 
+			consoleLogger.log("No loop type found");
+		else
+			loop.loopType = loopName;
+
+		if (loopCondition == null) 
+			consoleLogger.log("No loop condition found");
+		else
+			loop.loopCondition = loopCondition;
+		
+		return loop; 
+	}
+	
+	public String findLoopType(Sentence s)
+	{
+		//only finds for loop
+		for (GrammarRelation rel : s.relations) {
+			if (rel.word1.gramClass.equals("NN") && rel.word2.gramClass.equals("IN")
+			&& rel.relation.equals("case") && rel.word2.word.toLowerCase().equals("for"))
+			{
+				return "for";
+			}
+			else
+			{
+				consoleLogger.log("Could not create loop type, returning null");
+			}
+			}
+		return null;
+	}
+		
+	public String findLoopCondition(Sentence s){
+		//only finds for loop
+		String condition = "";
+		for (GrammarRelation rel : s.relations) {
+			if (rel.word1.gramClass.equals("NNS") && rel.word2.gramClass.equals("CD")
+			&& rel.relation.equals("compound"))
+			{
+				try
+				{
+					int iter = Integer.parseInt(rel.word2.word);
+					condition = "i < " + iter;
+					return condition;
+				}
+				catch(NumberFormatException nfe)
+				{
+					consoleLogger.log("Number of iteration not found");
+				}
+			}
+			else
+			{
+				consoleLogger.log("Could not find loop condition, returning null");
+			}
+		}
+		return null;
 	}
 	
 	public ASTNode createFunction(Sentence s) {
