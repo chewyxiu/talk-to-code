@@ -6,7 +6,46 @@ runs(VBZ) with that(WDT) has relation nsubj
 loop(NN) with runs(VBZ) has relation acl:relcl
 times(NNS) with 10(CD) has relation compound
 runs(VBZ) with times(NNS) has relation dobj
-Could not find loop condition, returning null
-Could not find loop condition, returning null
-Could not find loop condition, returning null
-Could not find loop condition, returning null
+[Sentence]	Create a for loop that runs 9 times 
+Relations 
+Create(VB) with a(DT) has relation dobj
+loop(NN) with for(IN) has relation case
+a(DT) with loop(NN) has relation nmod:for
+runs(VBZ) with that(WDT) has relation nsubj
+a(DT) with runs(VBZ) has relation acl:relcl
+times(NNS) with 9(CD) has relation compound
+runs(VBZ) with times(NNS) has relation dobj
+[Sentence]	Create for loop that runs x times 
+Relations 
+loop(NN) with for(IN) has relation case
+Create(VB) with loop(NN) has relation nmod:for
+runs(VBZ) with that(WDT) has relation nsubj
+loop(NN) with runs(VBZ) has relation acl:relcl
+times(NNS) with x(NN) has relation compound
+runs(VBZ) with times(NNS) has relation dobj
+[Sentence]	Create a for loop that runs x times 
+Relations 
+Create(VB) with a(DT) has relation dobj
+loop(NN) with for(IN) has relation case
+a(DT) with loop(NN) has relation nmod:for
+runs(VBZ) with that(WDT) has relation nsubj
+a(DT) with runs(VBZ) has relation acl:relcl
+times(NNS) with x(NN) has relation compound
+runs(VBZ) with times(NNS) has relation dobj
+[Sentence]	Create while loop that runs 10 times 
+Relations 
+loop(NN) with while(IN) has relation case
+Create(VB) with loop(NN) has relation nmod:while
+runs(VBZ) with that(WDT) has relation nsubj
+loop(NN) with runs(VBZ) has relation acl:relcl
+times(NNS) with 10(CD) has relation compound
+runs(VBZ) with times(NNS) has relation dobj
+[Sentence]	Create a while loop that runs 9 times 
+Relations 
+loop(NN) with a(DT) has relation det
+loop(NN) with while(NN) has relation compound
+Create(VB) with loop(NN) has relation dobj
+runs(VBZ) with that(WDT) has relation nsubj
+loop(NN) with runs(VBZ) has relation acl:relcl
+times(NNS) with 9(CD) has relation compound
+runs(VBZ) with times(NNS) has relation dobj

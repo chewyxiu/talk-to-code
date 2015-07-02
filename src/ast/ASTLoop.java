@@ -17,12 +17,12 @@ public class ASTLoop extends ASTNode{
 		String ret = "";
 		if (loopType.equals("for"))
 		{
-			ret = "for(int i = 0; " + loopCondition + ";i++)" +"\n" + "{ \n}";
+			ret = "for(int i = 0; " + loopCondition + "; i++)" +  "{ } \n";
 		}
 		
 		else
 		{
-			ret = "while(" + loopCondition + ")" + "\n" + "{ \n }";
+			ret = "while(" + loopCondition + ")" + "{ } \n";
 		}
 	/*	String ret = functionName+"(";
 		for(int i = 0; i<functionParameters.size(); i++)

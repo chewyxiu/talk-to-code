@@ -19,6 +19,7 @@ public class ASTCreator {
 	private ArrayList<String> createList;
 	private ArrayList<String> varTypeList;
 	private ArrayList<ASTCustomFunction> functionList;
+	private ArrayList<ASTLoop> loopList;
 	
 	public ASTCreator()
 	{
@@ -35,6 +36,7 @@ public class ASTCreator {
 		variableList = new ArrayList<String>();
 		variableTypeList = new ArrayList<String>();
 		functionList = new ArrayList<ASTCustomFunction>();
+		loopList = new ArrayList<ASTLoop>();
 		createList = new ArrayList<String>();
 		createList.add("loop");
 		createList.add("variable");
@@ -78,9 +80,10 @@ public class ASTCreator {
 	public String print()
 	{
 		String res = "";
-		for (ASTCustomFunction n : functionList) {
+	/*	for (ASTLoop n : loopList) {
 			res += n.print()+'\n';
 		}
+		*/
 		res += root.print();
 		return res;
 	}
@@ -122,11 +125,13 @@ public class ASTCreator {
 		
 		for (GrammarRelation rel : s.relations) {
 			if (rel.hasWord1("loop", "case") || rel.hasWord1("loop", "compound"))
+			{
 				return createLoop(s);
-		else 
+			}
 		
-			return null;
 		}
+		
+		
 		/*String r = s.findWord2InRelation(w, "dobj");
 		if(r==null)
 			consoleLogger.log("Could not find what to create, returning null");
@@ -164,7 +169,9 @@ public class ASTCreator {
 		else
 			loop.loopCondition = loopCondition;
 		
-		return loop; 
+		root.addChild(loop);
+		loopList.add(loop);
+		return null; 
 	}
 	
 	public String findLoopType(Sentence s)
@@ -172,15 +179,23 @@ public class ASTCreator {
 		//only finds for loop
 		for (GrammarRelation rel : s.relations) {
 			if (rel.word1.gramClass.equals("NN") && rel.word2.gramClass.equals("IN")
-			&& rel.relation.equals("case") && rel.word2.word.toLowerCase().equals("for"))
+			&& rel.relation.equals("case"))			
 			{
-				return "for";
+				if (rel.word2.word.toLowerCase().equals("for"))
+					return "for";
+				if (rel.word2.word.toLowerCase().equals("while"))
+					return "while";
 			}
-			else
+			
+			if (rel.word1.gramClass.equals("NN") && rel.word2.gramClass.equals("NN")
+					&& rel.relation.equals("compound"))			
 			{
-				consoleLogger.log("Could not create loop type, returning null");
+				if (rel.word2.word.toLowerCase().equals("while"))
+					return "while";
 			}
-			}
+			
+		}
+		consoleLogger.log("Could not create loop type, returning null");
 		return null;
 	}
 		
@@ -191,22 +206,19 @@ public class ASTCreator {
 			if (rel.word1.gramClass.equals("NNS") && rel.word2.gramClass.equals("CD")
 			&& rel.relation.equals("compound"))
 			{
-				try
-				{
 					int iter = Integer.parseInt(rel.word2.word);
 					condition = "i < " + iter;
 					return condition;
-				}
-				catch(NumberFormatException nfe)
-				{
-					consoleLogger.log("Number of iteration not found");
-				}
 			}
-			else
+			
+			else if (rel.word1.gramClass.equals("NNS") && rel.word2.gramClass.equals("NN")
+					&& rel.relation.equals("compound"))
 			{
-				consoleLogger.log("Could not find loop condition, returning null");
+				condition = "i < " + rel.word2.word;
+				return condition;
 			}
 		}
+		consoleLogger.log("Number of iteration not found");
 		return null;
 	}
 	

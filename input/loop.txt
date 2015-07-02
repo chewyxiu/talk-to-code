@@ -1,1 +1,6 @@
 Create for loop that runs 10 times
+Create a for loop that runs 9 times
+Create for loop that runs x times
+Create a for loop that runs x times
+Create while loop that runs 10 times
+Create a while loop that runs 9 times
