@@ -4,3 +4,7 @@ Create for loop that runs x times
 Create a for loop that runs x times
 Create while loop that runs 10 times
 Create a while loop that runs 9 times
+Create loop that runs 5 times
+Create a loop that runs 5 times
+Create loop that runs x times
+Make a loop that runs while true

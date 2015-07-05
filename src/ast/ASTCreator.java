@@ -124,7 +124,7 @@ public class ASTCreator {
 		}
 		
 		for (GrammarRelation rel : s.relations) {
-			if (rel.hasWord1("loop", "case") || rel.hasWord1("loop", "compound"))
+			if (rel.hasWord1("loop", "case") || rel.hasWord1("loop", "compound") || rel.hasWord1("loop", "acl:relcl"))
 			{
 				return createLoop(s);
 			}
@@ -159,11 +159,7 @@ public class ASTCreator {
 		String loopName = findLoopType(s);
 		String loopCondition = findLoopCondition(s);
 		
-		if (loopName == null) 
-			consoleLogger.log("No loop type found");
-		else
-			loop.loopType = loopName;
-
+		loop.loopType = loopName;
 		if (loopCondition == null) 
 			consoleLogger.log("No loop condition found");
 		else
@@ -178,7 +174,7 @@ public class ASTCreator {
 	{
 		//only finds for loop
 		for (GrammarRelation rel : s.relations) {
-			if (rel.word1.gramClass.equals("NN") && rel.word2.gramClass.equals("IN")
+			if ((rel.word1.gramClass.equals("NN") || rel.word1.gramClass.equals("JJ")) && rel.word2.gramClass.equals("IN")
 			&& rel.relation.equals("case"))			
 			{
 				if (rel.word2.word.toLowerCase().equals("for"))
@@ -195,8 +191,8 @@ public class ASTCreator {
 			}
 			
 		}
-		consoleLogger.log("Could not create loop type, returning null");
-		return null;
+		consoleLogger.log("Could not find loop type, returning default for loop");
+		return "for";
 	}
 		
 	public String findLoopCondition(Sentence s){
@@ -211,12 +207,20 @@ public class ASTCreator {
 					return condition;
 			}
 			
-			else if (rel.word1.gramClass.equals("NNS") && rel.word2.gramClass.equals("NN")
+			if (rel.word1.gramClass.equals("NNS") && rel.word2.gramClass.equals("NN")
 					&& rel.relation.equals("compound"))
 			{
 				condition = "i < " + rel.word2.word;
 				return condition;
 			}
+			
+			if (rel.word1.gramClass.equals("JJ") && rel.word2.gramClass.equals("IN")
+					&& rel.relation.equals("case"))
+			{
+				condition = "1";
+				return condition;
+			}
+			
 		}
 		consoleLogger.log("Number of iteration not found");
 		return null;
